@@ -1,0 +1,43 @@
+name: Deployment Workflow
+
+on: 
+  push:
+    branches: [ develop ]
+
+env:
+  PROJECT_ROOT: '/var/www/mental-wellness-backend'
+  TEST_CONFIG: '/var/.deploy_configs/mental-wellness-backend/test'
+  DEV_CONFIG: '/var/.deploy_configs/mental-wellness-backend/dev'
+  PM2_PROCESS: 'mental-wellness-backend-dev'
+    
+jobs:
+  test:
+    name: test
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v3
+    - name: install packages
+      run: |
+        npm install
+        cp -r $TEST_CONFIG/. ./
+        npm run build
+        npm run start:test
+        echo "Basic setup tested successfully" && sleep 2
+  deploy:
+    name: deploy
+    needs: test
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v3
+    - name: deploy
+      run: |
+        cd $PROJECT_ROOT
+        pwd
+        git fetch
+        git pull
+        npm install
+        cp -r $DEV_CONFIG/. ./
+        npm run build
+        pm2 restart $PM2_PROCESS
+        pm2 log $PM2_PROCESS & sleep 30; kill -INT %+
+        echo "Deployment completed successfully" && sleep 2
