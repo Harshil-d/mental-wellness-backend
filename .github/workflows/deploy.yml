@@ -17,12 +17,9 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      - name: Configure
-        run: |
-          source /home/ubuntu/.bashrc
-      - uses: actions/checkout@v3
       - name: Test
         run: |
+          source /home/ubuntu/.bashrc
           npm install
           cp -r $TEST_CONFIG/. ./
           npm run build
@@ -37,9 +34,6 @@ jobs:
       - name: Configure
         run: |
           source /home/ubuntu/.bashrc
-      - uses: actions/checkout@v3
-      - name: Deploy
-        run: |
           cd $PROJECT_ROOT
           pwd
           git fetch
