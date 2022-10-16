@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Configure
         run: |
-        source /home/ubuntu/.bashrc
+          source /home/ubuntu/.bashrc
   test:
     name: test
     needs: configure
