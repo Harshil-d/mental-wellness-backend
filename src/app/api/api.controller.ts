@@ -7,7 +7,7 @@ export class ApiController {
   constructor(private readonly apiService: ApiService) {}
 
   @Get()
-  @ApiTags('App')
+  @ApiTags('Api')
   getHello(): string {
     return this.apiService.getHello();
   }
