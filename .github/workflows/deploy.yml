@@ -28,13 +28,15 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      - name: Change Directory to project root
-        run: cd $PROJECT_ROOT && pwd
-      - name: Pull code from git
-        run: git fetch && git pull
-      - name: Install Dependencies and copy config files.
-        run: npm install && cp -r $DEV_CONFIG/. ./
-      - name: Make dev build.
-        run: npm run build
-      - name: restart pm2 process.
-        run: pm2 restart $PM2_PROCESS && pm2 log $PM2_PROCESS & sleep 30; kill -INT %+ && echo "Deployment completed successfully" && sleep 2
+      - name: Deploy Project to Dev Environment
+        run: |
+          cd $PROJECT_ROOT
+          pwd
+          git fetch
+          git pull
+          npm install
+          cp -r $DEV_CONFIG/. ./
+          npm run build
+          pm2 restart $PM2_PROCESS
+          pm2 log $PM2_PROCESS & sleep 30; kill -INT %+
+          echo "Deployment completed successfully" && sleep 2

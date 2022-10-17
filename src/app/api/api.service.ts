@@ -4,6 +4,6 @@ import { Injectable } from '@nestjs/common';
 export class ApiService {
   
   getHello(): string {
-    return 'MW Hello World!';
+    return 'Mental wellness Hello World!';
   }
 }
