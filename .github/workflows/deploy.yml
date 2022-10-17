@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Dependencies and copy config files.
-        run: cp -r $PROJECT_ROOT/node_modules ./ npm install && cp -r $TEST_CONFIG/. ./
+        run: cp -r $PROJECT_ROOT/node_modules ./ && npm install && cp -r $TEST_CONFIG/. ./
       - name: build
         run: npm run build
       - name: Run test build.
