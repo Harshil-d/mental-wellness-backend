@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AppStatusService } from './app_status.service';
 
@@ -6,7 +6,7 @@ import { AppStatusService } from './app_status.service';
 export class AppStatusController {
   constructor(private readonly appStatusService: AppStatusService) {}
 
-  @Get()
+  @Post()
   @ApiTags('AppStatus')
   get() {
     return this.appStatusService.get();
