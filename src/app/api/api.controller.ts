@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 import { ApiService } from './api.service';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -6,7 +6,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class ApiController {
   constructor(private readonly apiService: ApiService) {}
 
-  @Get()
+  @Post()
   @ApiTags('Api')
   getHello(): string {
     return this.apiService.getHello();
